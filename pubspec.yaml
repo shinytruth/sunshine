@@ -67,7 +67,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/sample-cover/
     - assets/images/main-page/
 
   fonts:
