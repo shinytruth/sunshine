@@ -55,6 +55,13 @@ class CustomTextTheme extends TextTheme {
       color: grey800Color,
       fontWeight: FontWeight.w400);
 
+  static TextStyle get mplus1RegularLarge => const TextStyle(
+      fontFamily: 'MPLUS1',
+      fontSize: 36,
+      height: 1.09,
+      color: grey800Color,
+      fontWeight: FontWeight.w400);
+
   static TextStyle get mplus1ExtraLight => const TextStyle(
       fontFamily: 'MPLUS1',
       fontSize: 20,

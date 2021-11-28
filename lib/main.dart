@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // 여기 입력된 제목이 Web 브라우저 탭의 제목이 된다.
-      title: "aJoara - Awaken Story Instinct",
+      title: "Sunshine Korean Call",
       scrollBehavior: MyCustomScrollBehavior(),
       builder: (context, child) {
         final MediaQueryData data = MediaQuery.of(context);
