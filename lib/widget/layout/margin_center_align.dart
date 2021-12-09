@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine/common/constant.dart';
 
 class MarginCenterAlign extends StatelessWidget {
   final Widget child;
@@ -21,15 +22,13 @@ class MarginCenterAlign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
-      // bool isNarrow = constraint.maxWidth < MAX_SCREEN_WIDTH;
-      // var maxScreenWidth = isNarrow ? constraint.maxWidth : MAX_SCREEN_WIDTH;
-      // maxScreenWidth = maxScreenWidth - horizontalPadding * 2;
-      var maxScreenWidth = constraint.maxWidth - horizontalPadding * 2;
-      var maxWidth2 = width ?? maxScreenWidth;
+      bool isNarrow = constraint.maxWidth < SCREEN_THRESHOLD;
+      var maxScreenWidth = isNarrow ? constraint.maxWidth : SCREEN_THRESHOLD;
+      maxScreenWidth = maxScreenWidth - horizontalPadding * 2;
       return Container(
         alignment: alignment ?? Alignment.center,
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth2),
+          constraints: BoxConstraints(maxWidth: maxScreenWidth),
           child: Container(color: color, child: child),
         ),
       );

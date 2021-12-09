@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sunshine/common/constant.dart';
+import 'package:sunshine/common/image/round_asset_image.dart';
 import 'package:sunshine/common/theme.dart';
-import 'package:sunshine/widget/layout/margin_center_align.dart';
+import 'package:sunshine/widget/appbar/main_appbar.dart';
 import 'package:sunshine/widget/layout/responsive_container.dart';
 
 class HomesScreen extends StatefulWidget {
@@ -16,30 +16,83 @@ class _HomesScreenState extends State<HomesScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    var isNarrow = false;
-    if (screenWidth < SCREEN_THRESHOLD) {
-      isNarrow = true;
-    }
     return Scaffold(
+      endDrawer: _buildEndDrawer(),
       body: ListView(
         children: [
-          _buildAppbar(isNarrow),
+          MainAppBar(),
           _buildFirstSection(screenWidth),
           _buildPlanSection(screenWidth),
-          const SizedBox(height: 100),
-          Column(
-            children: [
-              Image.asset(
-                'assets/images/main-page/hanok.jpeg',
-                fit: BoxFit.fitWidth,
-              ),
-              const SizedBox(height: 200),
-              Text("お家で気楽に電話しながら韓国語の会話力UP！",
-                  style: CustomTextTheme.mochiPopOneHuge),
-              const SizedBox(height: 200),
-            ],
-          )
+          _buildSecondSection()
         ],
+      ),
+    );
+  }
+
+  Drawer _buildEndDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            child: Text("Sunshine Korean Call",
+                style: CustomTextTheme.poppinsSemiBold),
+          ),
+          ListTile(
+            title: Text(
+              'About',
+              style: CustomTextTheme.poppinsMedium,
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text(
+              'Plan',
+              style: CustomTextTheme.poppinsMedium,
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text(
+              'Contact',
+              style: CustomTextTheme.poppinsMedium,
+            ),
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSecondSection() {
+    var bannerMsg = "お家で気楽に電話しながら韓国語の会話力UP！";
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 50.0),
+      child: ResponsiveContainer(
+        wide: Column(
+          children: [
+            const RoundAssetImage(
+              fileName: 'hanok',
+            ),
+            const SizedBox(height: 200),
+            Text(bannerMsg, style: CustomTextTheme.mochiPopOneHuge),
+            const SizedBox(height: 200),
+          ],
+        ),
+        narrow: Column(
+          children: [
+            const RoundAssetImage(
+              radius: BorderRadius.zero,
+              fileName: 'hanok',
+            ),
+            const SizedBox(height: 200),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: Text(bannerMsg, style: CustomTextTheme.mochiPopOneHuge)),
+            const SizedBox(height: 200),
+          ],
+        ),
       ),
     );
   }
@@ -57,7 +110,8 @@ class _HomesScreenState extends State<HomesScreen> {
     const mediumPadding = SizedBox(height: 50);
     const smallPadding = SizedBox(height: 30);
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 70.0),
+        padding: const EdgeInsets.symmetric(
+            vertical: 30.0, horizontal: horizontalPadding),
         child: ResponsiveContainer(
           narrow: Column(children: [
             Text(subMsg1, style: CustomTextTheme.mplus1RegularLarge),
@@ -74,6 +128,7 @@ class _HomesScreenState extends State<HomesScreen> {
             _buildPlanCard(screenWidth, "valorant", planTitleC, planDescC, .9),
           ]),
           wide: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: (screenWidth * .3),
@@ -88,18 +143,14 @@ class _HomesScreenState extends State<HomesScreen> {
                   ],
                 ),
               ),
-              Expanded(
+              Flexible(
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildPlanCard(screenWidth, "conversation", planTitleA,
-                            planDescA, .2),
-                        _buildPlanCard(
-                            screenWidth, "traffic", planTitleB, planDescB, .2),
-                      ],
-                    ),
+                    _buildPlanCard(
+                        screenWidth, "conversation", planTitleA, planDescA, .2),
+                    smallPadding,
+                    _buildPlanCard(
+                        screenWidth, "traffic", planTitleB, planDescB, .2),
                     smallPadding,
                     _buildPlanCard(
                         screenWidth, "valorant", planTitleC, planDescC, .2),
@@ -117,7 +168,7 @@ class _HomesScreenState extends State<HomesScreen> {
       width: (screenWidth * ratio),
       child: Column(
         children: [
-          _buildClipRRect(imageName),
+          RoundAssetImage(fileName: imageName),
           const SizedBox(height: 15),
           Text(title, style: CustomTextTheme.mplus1Regular),
           const SizedBox(height: 15),
@@ -134,10 +185,15 @@ class _HomesScreenState extends State<HomesScreen> {
     var subMsg2 =
         "実際に韓国人とおしゃべりしたーい！と思ってませんか\n\n友達とのおしゃべりのように楽しく始まる韓国語会話\n\n日常の話、自分が好きな主題からビジネスで役立つ表現まで選択できます！";
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 70.0),
+        padding: const EdgeInsets.symmetric(
+            vertical: 30.0, horizontal: horizontalPadding),
         child: ResponsiveContainer(
           narrow: Column(children: [
-            SizedBox(width: (screenWidth * .8), child: buildHanbokImage),
+            SizedBox(
+                width: (screenWidth * .8),
+                child: const RoundAssetImage(
+                  fileName: 'hanbok',
+                )),
             const SizedBox(height: 50),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,7 +202,9 @@ class _HomesScreenState extends State<HomesScreen> {
                 const SizedBox(height: 20),
                 Text(mainMsg2, style: CustomTextTheme.mochiPopOne),
                 const SizedBox(height: 100),
-                callingWomanImage,
+                const RoundAssetImage(
+                  fileName: 'calling_woman',
+                ),
                 const SizedBox(height: 50),
                 Text(subMsg1, style: CustomTextTheme.mplus1Regular),
                 const SizedBox(height: 30),
@@ -158,7 +216,11 @@ class _HomesScreenState extends State<HomesScreen> {
             children: [
               Column(
                 children: [
-                  SizedBox(width: (screenWidth / 3.2), child: buildHanbokImage),
+                  SizedBox(
+                      width: (screenWidth / 3.2),
+                      child: const RoundAssetImage(
+                        fileName: 'hanbok',
+                      )),
                   const SizedBox(height: 200),
                 ],
               ),
@@ -174,7 +236,10 @@ class _HomesScreenState extends State<HomesScreen> {
                     Row(
                       children: [
                         SizedBox(
-                            width: (screenWidth / 6), child: callingWomanImage),
+                            width: (screenWidth / 6),
+                            child: const RoundAssetImage(
+                              fileName: 'calling_woman',
+                            )),
                         const SizedBox(width: 50),
                         Expanded(
                           child: Column(
@@ -196,68 +261,5 @@ class _HomesScreenState extends State<HomesScreen> {
             ],
           ),
         ));
-  }
-
-  MarginCenterAlign _buildAppbar(bool isNarrow) {
-    return MarginCenterAlign(
-      color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 30),
-        child: Row(
-          children: [
-            Flexible(
-              child: Text("Sunshine Korean Call",
-                  style: isNarrow
-                      ? CustomTextTheme.poppinsSemiBoldSmaller
-                      : CustomTextTheme.poppinsSemiBold),
-            ),
-            if (!isNarrow)
-              Expanded(
-                child: Row(
-                  children: [
-                    const SizedBox(width: 50),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text("About",
-                            style: CustomTextTheme.poppinsMedium)),
-                    TextButton(
-                        onPressed: () {},
-                        child:
-                            Text("Plan", style: CustomTextTheme.poppinsMedium)),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text("Contact",
-                            style: CustomTextTheme.poppinsMedium)),
-                  ],
-                ),
-              ),
-            const Spacer(),
-            TextButton(
-                onPressed: () {},
-                child: Text("Login", style: CustomTextTheme.poppinsMedium)),
-            if (isNarrow)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(width: 50),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(FeatherIcons.menu)),
-                ],
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  ClipRRect get buildHanbokImage => _buildClipRRect('hanbok');
-
-  ClipRRect get callingWomanImage => _buildClipRRect('calling_woman');
-
-  ClipRRect _buildClipRRect(name) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Image.asset('assets/images/main-page/${name}.jpeg'),
-    );
   }
 }
