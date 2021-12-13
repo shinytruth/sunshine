@@ -19,8 +19,9 @@ class _HomesScreenState extends State<HomesScreen> {
     return Scaffold(
       endDrawer: _buildEndDrawer(),
       body: ListView(
+        controller: ScrollController(),
         children: [
-          MainAppBar(),
+          const MainAppBar(),
           _buildFirstSection(screenWidth),
           _buildPlanSection(screenWidth),
           _buildSecondSection()
@@ -69,15 +70,18 @@ class _HomesScreenState extends State<HomesScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 50.0),
       child: ResponsiveContainer(
-        wide: Column(
-          children: [
-            const RoundAssetImage(
-              fileName: 'hanok',
-            ),
-            const SizedBox(height: 200),
-            Text(bannerMsg, style: CustomTextTheme.mochiPopOneHuge),
-            const SizedBox(height: 200),
-          ],
+        wide: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50),
+          child: Column(
+            children: [
+              const RoundAssetImage(
+                fileName: 'hanok',
+              ),
+              const SizedBox(height: 200),
+              Text(bannerMsg, style: CustomTextTheme.mochiPopOneHuge),
+              const SizedBox(height: 200),
+            ],
+          ),
         ),
         narrow: Column(
           children: [
@@ -143,6 +147,7 @@ class _HomesScreenState extends State<HomesScreen> {
                   ],
                 ),
               ),
+              const SizedBox(width: 120),
               Flexible(
                 child: Column(
                   children: [

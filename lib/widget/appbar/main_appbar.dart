@@ -38,25 +38,16 @@ class MainAppBar extends StatelessWidget {
                 style: isNarrow
                     ? CustomTextTheme.poppinsSemiBoldSmaller
                     : CustomTextTheme.poppinsSemiBold),
-            Expanded(
-              child: Row(
-                children: [
-                  const SizedBox(width: 50),
-                  TextButton(
-                      onPressed: () {},
-                      child:
-                          Text("About", style: CustomTextTheme.poppinsMedium)),
-                  TextButton(
-                      onPressed: () {},
-                      child:
-                          Text("Plan", style: CustomTextTheme.poppinsMedium)),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("Contact",
-                          style: CustomTextTheme.poppinsMedium)),
-                ],
-              ),
-            ),
+            const SizedBox(width: 50),
+            TextButton(
+                onPressed: () {},
+                child: Text("About", style: CustomTextTheme.poppinsMedium)),
+            TextButton(
+                onPressed: () {},
+                child: Text("Plan", style: CustomTextTheme.poppinsMedium)),
+            TextButton(
+                onPressed: () {},
+                child: Text("Contact", style: CustomTextTheme.poppinsMedium)),
             const Spacer(),
             TextButton(
                 onPressed: () {},
