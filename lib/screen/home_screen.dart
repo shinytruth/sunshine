@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine/common/animation/slide_fade_in_widget.dart';
 import 'package:sunshine/common/constant.dart';
 import 'package:sunshine/common/image/round_asset_image.dart';
 import 'package:sunshine/common/theme.dart';
@@ -19,12 +20,12 @@ class _HomesScreenState extends State<HomesScreen> {
     return Scaffold(
       endDrawer: _buildEndDrawer(),
       body: ListView(
-        controller: ScrollController(),
+        semanticChildCount: 4,
         children: [
           const MainAppBar(),
-          _buildFirstSection(screenWidth),
-          _buildPlanSection(screenWidth),
-          _buildSecondSection()
+          SlideFadeInAnimation(child: _buildFirstSection(screenWidth)),
+          SlideFadeInAnimation(child: _buildPlanSection(screenWidth)),
+          SlideFadeInAnimation(child: _buildSecondSection())
         ],
       ),
     );
@@ -84,6 +85,7 @@ class _HomesScreenState extends State<HomesScreen> {
           ),
         ),
         narrow: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const RoundAssetImage(
               radius: BorderRadius.zero,
